@@ -12,3 +12,5 @@ fastparquet
 transformers
 torch
 scipy
+dvc
+dagshub
