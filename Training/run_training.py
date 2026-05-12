@@ -1,6 +1,7 @@
 """Entrypoint to train models (RNN/GRU/LSTM) using code ported from Train.ipynb."""
 import argparse
 import json
+import pickle
 from pathlib import Path
 import mlflow
 
@@ -26,8 +27,14 @@ def main():
     df = data_mod.load_parquet(dataset_path)
     X_df, y, label_encoder = data_mod.preprocess(df)
 
-    (X_train, y_train, X_val, y_val, X_test, y_test) = data_mod.split_scale_and_tensorize(
+    (X_train, y_train, X_val, y_val, X_test, y_test, scaler) = data_mod.split_scale_and_tensorize(
         X_df, y, seq_length=config.SEQ_LENGTH)
+
+    scaler_path = config.ROOT / "models" / "data" / "scaler.pkl"
+    scaler_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(scaler_path, 'wb') as fh:
+        pickle.dump(scaler, fh)
+    print(f"Scaler saved to: {scaler_path}")
 
     selected = [m.strip().lower() for m in args.models.split(',') if m.strip()]
     model_map = {

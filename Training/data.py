@@ -72,4 +72,5 @@ def split_scale_and_tensorize(X_df, y, seq_length=30, train_frac=0.7, val_frac=0
 
     return (X_train_tensor, y_train_tensor,
             X_val_tensor, y_val_tensor,
-            X_test_tensor, y_test_tensor)
+            X_test_tensor, y_test_tensor,
+            scaler)

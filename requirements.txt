@@ -12,7 +12,10 @@ fastparquet
 transformers
 torch
 scipy
+scikit-learn
 dvc
 dagshub
 matplotlib
 seaborn
+fastapi
+uvicorn
