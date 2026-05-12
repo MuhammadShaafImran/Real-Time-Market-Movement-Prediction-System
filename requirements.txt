@@ -1,0 +1,14 @@
+pandas
+yfinance
+finnhub-python
+feedparser
+beautifulsoup4
+requests
+nltk
+ta
+python-dotenv
+pyarrow
+fastparquet
+transformers
+torch
+scipy
