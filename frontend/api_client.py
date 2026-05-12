@@ -8,7 +8,7 @@ from typing import Dict, List, Any
 import streamlit as st
 
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "http://backend:8000"
 REQUEST_TIMEOUT = 10
 
 
