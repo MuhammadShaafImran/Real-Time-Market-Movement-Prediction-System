@@ -1,0 +1,6 @@
+[core]
+    remote = dagshub
+['remote "dagshub"']
+    url = https://dagshub.com/<YOUR_USERNAME>/<YOUR_REPO>.dvc
+['remote "origin"']
+    url = https://dagshub.com/shaafimran257/Real-Time-Market-Movement-Prediction-System.dvc
