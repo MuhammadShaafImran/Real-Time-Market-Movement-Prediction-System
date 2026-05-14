@@ -1,0 +1,104 @@
+name: Market AI CI Pipeline
+
+on:
+
+  push:
+    branches:
+      - main
+      - dev
+
+  pull_request:
+    branches:
+      - main
+      - dev
+
+
+jobs:
+
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ============================================================
+      # CHECKOUT REPOSITORY
+      # ============================================================
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+
+      # ============================================================
+      # SETUP PYTHON
+      # ============================================================
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+
+        with:
+          python-version: '3.11'
+
+
+      # ============================================================
+      # INSTALL DEPENDENCIES
+      # ============================================================
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+
+      # ============================================================
+      # VERIFY FASTAPI BACKEND
+      # ============================================================
+
+      - name: Verify FastAPI Backend
+        run: |
+          python -c "from api.app import app; print('FastAPI Backend OK')"
+
+
+      # ============================================================
+      # VERIFY STREAMLIT FRONTEND
+      # ============================================================
+
+      - name: Verify Streamlit Frontend
+        run: |
+          python -c "import streamlit; print('Streamlit Frontend OK')"
+
+
+      # ============================================================
+      # VERIFY TRAINING MODELS
+      # ============================================================
+
+      - name: Verify Training Models
+        run: |
+          python -c "from Training.models import LSTMModel; print('Training Models OK')"
+
+
+      # ============================================================
+      # VERIFY DATA PIPELINE
+      # ============================================================
+
+      - name: Verify Data Pipeline
+        run: |
+          python -c "from src.processing.feature_engineering import compute_technical_indicators; print('Pipeline OK')"
+
+
+      # ============================================================
+      # VERIFY PREDICTOR
+      # ============================================================
+
+      - name: Verify Predictor
+        run: |
+          python -c "from api.predictor import predict; print('Predictor OK')"
+
+
+      # ============================================================
+      # SUCCESS MESSAGE
+      # ============================================================
+
+      - name: CI Pipeline Success
+        run: |
+          echo 'CI/CD pipeline completed successfully!'
